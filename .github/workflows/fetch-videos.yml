@@ -25,7 +25,7 @@ jobs:
               [ -z "${dest:-}" ] && continue
               case "$dest" in \#*) continue;; esac
               case "$dest" in *..*) echo "Destination refusée : $dest"; exit 1;; esac
-              case "$dest" in media/*.mp4) ;; *) echo "Destination refusée : $dest"; exit 1;; esac
+              case "$dest" in media/*.mp4|media/*.png|media/*.jpg|media/*.webp) ;; *) echo "Destination refusée : $dest"; exit 1;; esac
               case "$url" in https://*.heygen.ai/*|https://*.heygen.com/*) ;; *) echo "URL refusée pour $dest"; exit 1;; esac
               mkdir -p "$(dirname "$dest")"
               curl -fsSL --retry 3 --max-filesize 300000000 -o "$dest" "$url"
@@ -36,5 +36,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add media
-          git commit -m "Vidéos HeyGen rapatriées"
+          git commit -m "Médias HeyGen rapatriés"
           git push
